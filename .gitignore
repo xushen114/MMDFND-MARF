@@ -1,0 +1,32 @@
+# third-party data and weights
+data/
+param_model/
+pretrained_model/
+outputs/
+archive/
+.cache/
+
+# trained artifacts
+*.pkl
+*.pt
+*.pth
+*.npz
+*.ckpt
+*.bin
+*.safetensors
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

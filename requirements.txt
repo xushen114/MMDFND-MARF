@@ -1,0 +1,12 @@
+torch==2.0.1
+transformers==4.33.2
+scikit-learn==1.6.1
+pandas==2.3.3
+numpy==1.23.2
+matplotlib==3.9.4
+tqdm==4.70.1
+Pillow==11.3.0
+openpyxl==3.1.5
+scipy==1.13.1
+cn-clip==1.6.0
+timm==0.4.12
