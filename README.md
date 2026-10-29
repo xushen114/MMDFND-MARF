@@ -49,11 +49,21 @@ pip install -r requirements.txt
 If you use CPU only, install the CPU build of PyTorch; the backbone inference
 will be slow but the router code itself is small.
 
-## Data and checkpoint
+## Data, pretrained models, and checkpoint
 
-1. Obtain the Weibo data used by MMDFND from the
-   [MMDFND repository](https://github.com/yutchina/MMDFND) or from the
-   dataset release described there. The expected files are:
+> This repository does **not** redistribute the Weibo/Weibo21 datasets,
+> pretrained encoders, or the MMDFND checkpoint. The links below point to the
+> official sources; please follow their licenses and terms of use.
+
+### 1. Weibo dataset
+
+The processed Weibo data with domain labels are distributed by the MMDFND
+authors. As listed in the official MMDFND README:
+
+- Baidu Pan: https://pan.baidu.com/s/1TGc-8RUt6BIHO1rjnzuPxQ (code: `qwer`)
+- Official project: https://github.com/yutchina/MMDFND
+
+Place the extracted files under `data/`:
 
 ```text
 data/train_origin.csv
@@ -67,23 +77,65 @@ data/val_clip_loader.pkl
 data/test_clip_loader.pkl
 ```
 
-2. If you only have raw CSV/images, run the preprocessing scripts:
+If the Baidu link expires, use the official MMDFND repository or contact its
+authors. The processed files bypass the preprocessing step.
 
-```bash
-python data_pre.py
-python clip_data_pre.py
-# optional: python weibo21_data_pre.py / weibo21_clip_data_pre.py
+### 2. Weibo21 (optional)
+
+Weibo21 is **not** redistributed here. Following the MMDFND README and
+Ying et al. (2023), request the complete multimodal multi-domain dataset from
+Dr. Qiong Nan (`nanqiong19z@ict.ac.cn`), and see
+https://github.com/yingqichao/fnd-bootstrap for the original benchmark.
+
+Place the Weibo21 files under `Weibo_21/`:
+
+```text
+Weibo_21/train_clip_loader.pkl
+Weibo_21/train_loader.pkl
+Weibo_21/train_datasets.xlsx
+Weibo_21/val_...
+Weibo_21/test_...
 ```
 
-3. Obtain the MMDFND checkpoint from its authors and place it at:
+### 3. Pretrained encoders
+
+The backbone code expects the same pretrained encoders as the official
+MMDFND implementation:
+
+- **RoBERTa**: download from
+  https://drive.google.com/drive/folders/1y2k22iMG1i1f302NLf-bj7UEe9zwTwLR?usp=sharing
+  and put all files under `pretrained_model/`.
+- **MAE**: follow https://github.com/facebookresearch/mae and place
+  `mae_pretrain_vit_base.pth` in the repository root.
+- **Chinese-CLIP**: follow https://github.com/OFA-Sys/Chinese-CLIP and place
+  `clip_cn_vit-b-16.pt` in the repository root.
+
+These files are not included in this repository.
+
+### 4. MMDFND checkpoint
+
+The paper uses:
 
 ```text
 param_model/MMDFND/parameter_mmdfnd.pkl
 ```
 
-The repository does not redistribute weights. Exact paper numbers require the
-same 3-epoch checkpoint used in the paper; a newly trained checkpoint will give
-different values.
+This checkpoint is **not** part of the official MMDFND repository and is not
+redistributed here. Request it from the authors, or train MMDFND with
+`python main.py`. Exact paper numbers require the same 3-epoch checkpoint; a
+newly trained checkpoint will give different values.
+
+### 5. Preprocessing (only if you have raw data)
+
+If you start from raw CSV/images instead of the processed files:
+
+```bash
+python data_pre.py
+python clip_data_pre.py
+# optional Weibo21:
+python weibo21_data_pre.py
+python weibo21_clip_data_pre.py
+```
 
 ## Reproduce the pipeline
 
